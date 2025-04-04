@@ -14,6 +14,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+  
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2,"0")}`;
 };
 
 readableTime(458);
@@ -42,6 +47,17 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const countries = [];
+  const length = COUNTRY_NAMES.length;
+  if (index > 0) {
+    for (let i = 0; i < length; i++) {
+      countries.push(COUNTRY_NAMES[(index + i) % length]);
+    }
+  } else {
+    return "Please enter a positive number";
+  };
+  
+  return countries;
 };
 
 circularArray(2);
@@ -71,6 +87,17 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let sum = 0;
+  for (let i = 1; i <= number; i++) {
+    let powResult = BigInt(i) ** BigInt(i);
+    sum = BigInt(sum) + powResult;
+  }
+
+  let text = String(sum);
+  const result = text.slice(-lastDigits);
+
+  return result;
+
 };
 
 ownPower(10, 3);
@@ -96,6 +123,20 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let factorial = BigInt(1);
+  let sum = 0;
+  for (let i = 1; i <= n; i++) {
+    factorial *= BigInt(i);
+  }
+
+  // Convert the factorial to an array of digits
+  const arrayFactorial = Array.from(String(factorial), Number);
+
+  arrayFactorial.forEach(num => {
+    sum += num;
+  })
+
+  return sum;
 };
 
 digitSum(10);
@@ -119,6 +160,22 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  let a = 0;
+  let b = 1;
+  let index = 1;
+  let nextTerm = 0;
+  
+  while (true) {
+    nextTerm = a + b;
+    index++;
+    a = b;
+    b = nextTerm;
+
+    if (String(nextTerm).length === n) {
+      break;
+    }
+  }
+  return index;
 };
 
 fibIndex(3);
