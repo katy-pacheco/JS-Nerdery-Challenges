@@ -14,11 +14,18 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const remainingSeconds = seconds % 60;
+  const SECONDS_IN_HOUR = 3600
+  const SECONDS_IN_MINUTE = 60
+  const HOURS = Math.floor(seconds / SECONDS_IN_HOUR);
+  const MINUTES = Math.floor((seconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
+  const REMAININGSECONDS = seconds % SECONDS_IN_MINUTE;
   
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2,"0")}`;
+  function formatTime(param){
+    const TIME = String(param).padStart(2, "0");
+    return TIME;
+  }
+  
+  return `${formatTime(HOURS)}:${formatTime(MINUTES)}:${formatTime(REMAININGSECONDS)}`;
 };
 
 readableTime(458);
@@ -165,15 +172,11 @@ const fibIndex = (n) => {
   let index = 1;
   let nextTerm = 0;
   
-  while (true) {
+  while (String(nextTerm).length < n) {
     nextTerm = a + b;
     index++;
     a = b;
     b = nextTerm;
-
-    if (String(nextTerm).length === n) {
-      break;
-    }
   }
   return index;
 };
